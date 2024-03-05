@@ -14,5 +14,10 @@ print("La division entre los numeros es: ",division)
 print("El cubo de",numero1,"es:",cubo1)
 print("El cubo de",numero2,"es:",cubo2)
 
+
+
+X = input("Ingrese: ")
+=======
 print ("Hola putos de mierda")
 print ("Hola putos")
+
