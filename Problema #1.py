@@ -15,3 +15,4 @@ print("El cubo de",numero1,"es:",cubo1)
 print("El cubo de",numero2,"es:",cubo2)
 
 print ("Hola putos de mierda")
+print ("Hola putos")
