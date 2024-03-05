@@ -15,3 +15,5 @@ print("El cubo de",numero1,"es:",cubo1)
 print("El cubo de",numero2,"es:",cubo2)
 
 print ("Hola")
+
+X = input("Ingrese: ")
