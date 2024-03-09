@@ -21,3 +21,27 @@ def registro_de_usuario():
     
     print("Usuario registrado con éxito")
 datos_usuario = registro_de_usuario()
+
+print ("***PUNTO DE ENTREGA DEL PAQUETE***\n")
+
+print ("Indique la siguiente informacion necesaria: \n")
+
+def paquete():
+	dest = input("Ingrese el nombre del destinatario: ")
+	telf = input ("Ingrese el telefono del destinatario: ")
+	ced = input ("Ingrese el numero de cedula del destinatario: ")
+	pes = float(input("Ingrese el peso del paquete: "))
+	cobro = float(input("Ingrese la opcion de compra contra entrega [Monto a cobrar ¢1500]: "))
+	print ("")
+
+print (paquete())
+
+print ("**Informacion del paquete actualizada**")
+
+
+def paqueteInfo():
+	print ("Destinatario: ", dest)
+	print ("Tel: ", telf)
+	print ("ID: ", ced)
+	print ("Peso: ", pes, "kg")
+	print ("Total: Ø", cobro)
