@@ -1,15 +1,42 @@
-###PROYECTO
+### Definir Funciones ###
+
+# Lista para almacenar la información de los usuarios y paquetes
+usuarios = []
+paquetes = []
+
+### Crear Cuenta de Usuario ###
+
 def registro_de_usuario():
-    correo= input("Ingrese su correo electrónico:")
-    Nombre_Co= input("Ingrese el nombre del comercio:")
-    telefono= input("Digite el numero telefonico del comercio:")
-    Nombre_Dueño= input("Ingrese su nombre:")
-    Ubicacion = input("Ingrese la ubicación del local:")
+    correo = input("Ingrese su correo electrónico: ")
+    Nombre_Co = input("Ingrese el nombre del comercio: ")
+    telefono = input("Digite el numero telefonico del comercio: ")
+    Nombre_Dueño = input("Ingrese su nombre: ")
+    Ubicacion = input("Ingrese la ubicación del local: ")
+    ced = input("Ingrese cedula: ")
+
+    usuario = {
+        "cedula": ced,
+        "correo": correo,
+        "Nombre_Co": Nombre_Co,
+        "telefono": telefono,
+        "Nombre_Dueño": Nombre_Dueño,
+        "Ubicacion": Ubicacion
+    }
+    usuarios.append(usuario)
 
     print("Usuario registrado con exito")
-registro_de_usuario()
 
-def registro_de_usuario():
+    with open("User" + ced + ".txt", "w") as file:
+        file.write(f"El nombre del Comercio es: {Nombre_Co}\n")
+        file.write(f"El nombre del dueño es: {Nombre_Dueño}\n")
+        file.write(f"El correo del dueño es: {correo}\n")
+        file.write(f"El telefono del dueño es: {telefono}\n")
+        file.write(f"La ubicacion es: {Ubicacion}\n")
+        file.write(f"{ced}\n")
+
+### Crear Factura Electronica ###
+
+def factura(ced):
     tipo_cedula = input("Ingrese el tipo de cédula (Física o Jurídica): ")
     num_cedula = input("Ingrese el número de cédula: ")
     nombre = input("Ingrese el nombre registrado: ")
@@ -19,29 +46,103 @@ def registro_de_usuario():
     canton = input("Ingrese el cantón: ")
     distrito = input("Ingrese el distrito: ")
     
-    print("Usuario registrado con éxito")
-datos_usuario = registro_de_usuario()
+    print("Factura Registrada")
 
-print ("***PUNTO DE ENTREGA DEL PAQUETE***\n")
+    file=open ("Fact" + ced + ".txt", "w") 
+    file.write(f"Tipo de Cedula: {tipo_cedula}\n")
+    file.write(f"Numero de Cedula: {num_cedula}\n")
+    file.write(f"Nombre: {nombre}\n")
+    file.write(f"Tel: {telefono}\n")
+    file.write(f"E-Mail: {correo}\n")
+    file.write(f"Localizacion: {provincia}, {canton}, {distrito}\n")
 
-print ("Indique la siguiente informacion necesaria: \n")
+### Crear Paquete ###
 
-def paquete():
-	dest = input("Ingrese el nombre del destinatario: ")
-	telf = input ("Ingrese el telefono del destinatario: ")
-	ced = input ("Ingrese el numero de cedula del destinatario: ")
-	pes = float(input("Ingrese el peso del paquete: "))
-	cobro = float(input("Ingrese la opcion de compra contra entrega [Monto a cobrar ¢1500]: "))
-	print ("")
+def paquete(ced):
+    dest = input("Ingrese el nombre del destinatario: ")
+    telf = input("Ingrese el telefono del destinatario: ")
+    ceddes = input("Ingrese el numero de cedula del destinatario: ")
+    pes = float(input("Ingrese el peso del paquete: "))
+    cobro = float(input("Ingrese la opcion de compra contra entrega [Monto a cobrar ¢1500]: "))
+    numpq = input("Este es el paquete #? que envio: ")
 
-print (paquete())
+    nuevo_paquete = {
+        "codigo": ced + numpq,
+        "estado": "Creado",
+        "destinatario": dest,
+        "telefono_dest": telf,
+        "cedula_dest": ceddes,
+        "peso": pes,
+        "costo": cobro
+    }
+    paquetes.append(nuevo_paquete)
 
-print ("**Informacion del paquete actualizada**")
+    file=open("PQT" + ced + numpq + ".txt", "w")
+    file.write(f"Destinatario: {dest}\n")
+    file.write(f"Tel: {telf}\n")
+    file.write(f"Cedula Destinatario: {ceddes}\n")
+    file.write(f"Peso en KG: {pes}\n")
+    file.write(f"Costo: {cobro}\n")
 
+    print("Paquete creado y registrado con éxito.")
 
-def paqueteInfo():
-	print ("Destinatario: ", dest)
-	print ("Tel: ", telf)
-	print ("ID: ", ced)
-	print ("Peso: ", pes, "kg")
-	print ("Total: Ø", cobro)
+### Funciones de Rastreo y Actualización de Estado ###
+
+def actualizar_estado_paquete(codigo, nuevo_estado):
+    for paquete in paquetes:
+        if paquete['codigo'] == codigo:
+            paquete['estado'] = nuevo_estado
+            return f"El estado del paquete {codigo} ha sido actualizado a: {nuevo_estado}"
+    return "Código de paquete no encontrado."
+
+def rastrear_paquete(codigo):
+    for paquete in paquetes:
+        if paquete['codigo'] == codigo:
+            return f"El estado de su paquete {codigo} es: {paquete['estado']}"
+    return "Código de paquete no encontrado."
+
+### Mostrar Menu al Usuario ###
+
+print("►►►► Bienvenido al Programa de Mensajeria Fidelitas ◄◄◄◄\n")
+print("▬▬▬▬ MENU ▬▬▬▬\n")
+print("Opciones:")
+print("1. Crear cuenta de usuario")
+print("2. Entrar a cuenta")
+print("3. Salir\n")
+
+while True:
+    opc = int(input("Ingrese la opcion: "))
+
+    if opc == 1:
+        registro_de_usuario()
+
+    elif opc == 2:
+        ced = input("Ingrese numero de Cedula: ")
+        usuario_encontrado = any(usuario['cedula'] == ced for usuario in usuarios)
+        
+        if usuario_encontrado:
+            print("Bienvenido, escoja lo que desea hacer: ")
+            print("1. Verificar estado de paquete: ")
+            print("2. Crear nuevo paquete: ")
+            print("3. Salir")
+
+            dec = int(input("Decision: "))
+
+            if dec == 1:
+                codigo_paquete = input("Ingrese el código de su paquete: ")
+                print(rastrear_paquete(codigo_paquete))
+
+            elif dec == 2:
+                paquete(ced)
+                fact = int(input("Si desea factura, presione 1, sino 2: "))
+                if fact == 1:
+                    factura(ced)
+
+            elif dec == 3:
+                break
+
+        else:
+            print("El usuario NO fue encontrado, cree uno")
+
+    elif opc == 3:
+        break
