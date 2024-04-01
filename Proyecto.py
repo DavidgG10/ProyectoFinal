@@ -77,6 +77,8 @@ def paquete(ced):
     }
     paquetes.append(nuevo_paquete)
 
+    
+
     file=open("PQT" + ced + numpq + ".txt", "w")
     file.write(f"Destinatario: {dest}\n")
     file.write(f"Tel: {telf}\n")
@@ -84,14 +86,19 @@ def paquete(ced):
     file.write(f"Peso en KG: {pes}\n")
     file.write(f"Costo: {cobro}\n")
 
+    print ("Su codigo de paquete sera igual a: ", ced+numpq)
+
     print("Paquete creado y registrado con éxito.")
+
+    def 
 
 ### Funciones de Rastreo y Actualización de Estado ###
 
 def actualizar_estado_paquete(codigo, nuevo_estado):
     for paquete in paquetes:
         if paquete['codigo'] == codigo:
-            paquete['estado'] = nuevo_estado
+            paquete['estado'] = input("Ingrese el nuevo estado (Creado, Recolectado, Entrega Fallida, Entregado): ")
+            nuevo_estado = paquete['estado']
             return f"El estado del paquete {codigo} ha sido actualizado a: {nuevo_estado}"
     return "Código de paquete no encontrado."
 
@@ -100,6 +107,21 @@ def rastrear_paquete(codigo):
         if paquete['codigo'] == codigo:
             return f"El estado de su paquete {codigo} es: {paquete['estado']}"
     return "Código de paquete no encontrado."
+
+def generar_numero_guias(datos):
+    
+
+    remitente = input("Ingrese el nombre del remitente: ")
+    destinatario2 = input("Ingrese el nombre del destinatario: ")
+    contenido = input("Ingrese la descripción del contenido del paquete: ")
+    numero_seguimiento = input("Ingrese numero  de seguimiento (cedula+01): ")
+
+
+    print("**INFORMACIÓN DEL PAQUETE**")
+    print("Remitente:", remitente)
+    print("Destinatario:", destinatario)
+    print("Contenido:", contenido)
+    print("Número de Seguimiento:", numero_seguimiento)
 
 ### Mostrar Menu al Usuario ###
 
@@ -124,7 +146,8 @@ while True:
             print("Bienvenido, escoja lo que desea hacer: ")
             print("1. Verificar estado de paquete: ")
             print("2. Crear nuevo paquete: ")
-            print("3. Salir")
+            print("3. Cambiar estado de paquete")
+            print("4. Salir")
 
             dec = int(input("Decision: "))
 
@@ -134,13 +157,26 @@ while True:
 
             elif dec == 2:
                 paquete(ced)
+                generar_numero_guias()
                 fact = int(input("Si desea factura, presione 1, sino 2: "))
                 if fact == 1:
                     factura(ced)
 
             elif dec == 3:
+                codigo_paquete = input("Ingrese el código de su paquete: ")
+                nuevo_estado = "Creado"
+                print (actualizar_estado_paquete(codigo_paquete, nuevo_estado))
+
+            elif dec == 4:
                 break
 
+        else:
+            print("El usuario NO fue encontrado, cree uno")
+
+    elif opc == 3:
+        break
+
+print ("Gracias por usar el servicio, vuelva pronto")
         else:
             print("El usuario NO fue encontrado, cree uno")
 
