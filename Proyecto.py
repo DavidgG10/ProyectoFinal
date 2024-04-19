@@ -90,7 +90,7 @@ def paquete(ced):
 
     print("Paquete creado y registrado con éxito.")
 
-    def 
+    
 
 ### Funciones de Rastreo y Actualización de Estado ###
 
