@@ -421,8 +421,3 @@ while opc != 3:
 
 
 print ("Gracias por usar el programa, hasta luego!")
-        else:
-            print("El usuario NO fue encontrado, cree uno")
-
-    elif opc == 3:
-        break
